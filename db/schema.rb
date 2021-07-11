@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_11_033820) do
+ActiveRecord::Schema.define(version: 2021_07_11_190323) do
 
   create_table "folders", force: :cascade do |t|
     t.string "name"
@@ -24,4 +24,15 @@ ActiveRecord::Schema.define(version: 2021_07_11_033820) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "url_items", force: :cascade do |t|
+    t.string "url"
+    t.string "name"
+    t.string "description"
+    t.integer "folder_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["folder_id"], name: "index_url_items_on_folder_id"
+  end
+
+  add_foreign_key "url_items", "folders"
 end
