@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_11_190323) do
+ActiveRecord::Schema.define(version: 2021_07_11_213950) do
 
   create_table "folders", force: :cascade do |t|
     t.string "name"
@@ -22,6 +22,13 @@ ActiveRecord::Schema.define(version: 2021_07_11_190323) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tags_url_items", id: false, force: :cascade do |t|
+    t.integer "url_item_id", null: false
+    t.integer "tag_id", null: false
+    t.index ["tag_id"], name: "index_tags_url_items_on_tag_id"
+    t.index ["url_item_id"], name: "index_tags_url_items_on_url_item_id"
   end
 
   create_table "url_items", force: :cascade do |t|
