@@ -8,4 +8,8 @@ Rails.application.routes.draw do
     get 'tags', to: "tags#index", as: :tags_index
     post 'tags/create/', to: "tags#create", as: :tag_creation
   end
+
+  scope 'url_items', controller: "url_items" do
+    post 'url_items/create/', to: "url_items#create", as: :url_item_creation
+  end
 end
