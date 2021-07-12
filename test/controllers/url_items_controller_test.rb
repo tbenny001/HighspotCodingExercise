@@ -17,6 +17,22 @@ class UrlItemsControllerTest < ActionDispatch::IntegrationTest
     assert_equal [test_url, test_name, test_folder_id], [result.url, result.name, result.folder_id] 
   end
 
+  test "should create a url_item_tags when tags are supplied" do
+    test_url = "http://test.com"
+    test_name = "foo"
+    test_folder_id = Folder.first.id
+    test_tags = ["baz", "bar"]
+    tag1 = Tag.create(name: test_tags.first)
+    tag2 = Tag.create(name: test_tags.last)
+
+    assert_empty UrlItemTag.where(tag_id: [tag1.id, tag2.id])
+    
+    post url_item_creation_path, params: { url: test_url, name: test_name, folder_id: test_folder_id, tags: test_tags }
+
+    assert_response :success
+    assert UrlItemTag.where(tag_id: [tag1.id, tag2.id])
+  end
+
   test "should return an error message if the provided folder id is invalid" do
     expected_error = "Invalid parameter passed. Please try again"
     test_url = "http://test.com"
