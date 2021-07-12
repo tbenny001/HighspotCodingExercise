@@ -1,24 +1,52 @@
-# README
+# Highspot Coding Exercise
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Dependencies:
+- rbenv version 1.1.2
+- bundler version 1.17.3
+- ruby 2.6.3
 
-Things you may want to cover:
+## Installation
+Once you've installed the above dependencies, you can begin installing the app. To install, clone this repository and run the following commands to install gems and start the server:
+```sh
+bundle install
+brails db:migrate
+brails s
+```
 
-* Ruby version
+## Testing
+You can test the different endpoints in this project by using the following curl commands and tailoring them to your needs:
 
-* System dependencies
+Folder Creation Endpoint Example:
+```sh
+curl -X POST -d "name=home" http://localhost:3000/folders/create
+```
 
-* Configuration
+Folder List All Endpoint Example:
+```sh
+curl -X GET http://localhost:3000/folders/index
+```
 
-* Database creation
+Tag Creation Endpoint Example:
+```sh
+curl -X POST -d "name=small" http://localhost:3000/tags/create
+```
 
-* Database initialization
+Tag List All Endpoint Example:
+```sh
+curl -X GET http://localhost:3000/tags/index
+```
 
-* How to run the test suite
+Url Item Creation Endpoint Example:
+```sh
+curl -X POST -d "url=http://test.com&name=test&folder_id=1"  http://localhost:3000/url_items/create
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+Url Item Search Endpoint Example(using name):
+```sh
+curl -X POST -d "name=test"  http://localhost:3000/url_items/search
+```
 
-* Deployment instructions
-
-* ...
+Url Item Search Endpoint Example(using name and folder_id):
+```sh
+curl -X POST -d "name=test&folder_id=1"  http://localhost:3000/url_items/search
+```
