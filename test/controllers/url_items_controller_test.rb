@@ -97,6 +97,22 @@ class UrlItemsControllerTest < ActionDispatch::IntegrationTest
     assert_equal [test_item1], result
   end
 
+  test "should filter url items when queried by name and tags are provided" do
+    tag1 = Tag.create(name: "bar")
+    tag2 = Tag.create(name: "baz")
+
+    test_name = "foo"
+    test_item1 = UrlItem.create(url: "http://test.com", name: test_name, folder_id: Folder.first.id, tags: [tag1])
+    test_item2 = UrlItem.create(url: "http://test2.com", name: test_name, folder_id: Folder.second.id, tags: [tag2])
+    
+    post url_item_search_path, params: { name: test_name, tags: [tag1.name] }
+
+    assert_response :success
+    response_body = JSON.parse(response.body)
+    result = UrlItem.find(response_body.map{|i| i["id"]})
+    assert_equal [test_item1], result
+  end
+
   test "should return an empty response if name is not valid" do
     test_name = "foo"
     test_item1 = UrlItem.create(url: "http://test.com", name: test_name, folder_id: Folder.first.id)

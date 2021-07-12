@@ -13,6 +13,6 @@ class UrlItemsController < ApplicationController
   def search
     @url_items = UrlItem.where(name: params[:name])
     @url_items = @url_items.where(folder_id: params[:folder_id]) if params[:folder_id]
-    render json: @url_items.where(name: params[:name]).to_json
+    render json: @url_items.to_json
   end
 end
