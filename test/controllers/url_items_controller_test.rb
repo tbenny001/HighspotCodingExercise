@@ -2,7 +2,8 @@ require "test_helper"
 
 class UrlItemsControllerTest < ActionDispatch::IntegrationTest
   #create action
-  test "should create a url item with the required fields" do
+  test "should create a url item with the required fields with a success message" do
+    expected_success_message = "Url Item successfully created"
     test_url = "http://test.com"
     test_name = "foo"
     test_folder_id = Folder.first.id
@@ -14,6 +15,7 @@ class UrlItemsControllerTest < ActionDispatch::IntegrationTest
     result = UrlItem.where(url: test_url, name: test_name, folder_id: test_folder_id).first
 
     assert_response :success
+    assert_match expected_success_message, JSON.parse(response.body)["message"]
     assert_equal [test_url, test_name, test_folder_id], [result.url, result.name, result.folder_id] 
   end
 
