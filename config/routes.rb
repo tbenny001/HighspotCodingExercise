@@ -11,5 +11,6 @@ Rails.application.routes.draw do
 
   scope 'url_items', controller: "url_items" do
     post 'url_items/create/', to: "url_items#create", as: :url_item_creation
+    post 'url_items/search/', to: "url_items#search", as: :url_item_search
   end
 end
