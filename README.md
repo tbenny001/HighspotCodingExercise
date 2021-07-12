@@ -14,6 +14,11 @@ brails s
 ```
 
 ## Testing
+If for any reason a clean database state is needed, run the following command. It will dump your sql tables and give you a fresh db:
+```sh
+brails db:reset
+```
+
 You can test the different endpoints in this project by using the following curl commands and tailoring them to your needs:
 
 Folder Creation Endpoint Example:
@@ -38,7 +43,7 @@ curl -X GET http://localhost:3000/tags/index
 
 Url Item Creation Endpoint Example:
 ```sh
-curl -X POST -d "url=http://test.com&name=test&folder_id=1"  http://localhost:3000/url_items/create
+curl -X POST -d "url=http://test.com&name=test&folder_id=1&tags=short"  http://localhost:3000/url_items/create
 ```
 
 Url Item Search Endpoint Example(using name):
@@ -49,4 +54,9 @@ curl -X POST -d "name=test"  http://localhost:3000/url_items/search
 Url Item Search Endpoint Example(using name and folder_id):
 ```sh
 curl -X POST -d "name=test&folder_id=1"  http://localhost:3000/url_items/search
+```
+
+Url Item Search Endpoint Example(using name, folder_id, and tag):
+```sh
+curl -X POST -d "name=test&folder_id=1&tags=short"  http://localhost:3000/url_items/search
 ```
